@@ -41,7 +41,7 @@ public class MapperConfig {
 
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static MapperConfig.MapperConfigBuilder defaultConfig(String scanPackages) {
+    public static MapperConfig.MapperConfigBuilder defaultConfig(String... scanPackages) {
         return MapperConfig.builder()
                 .mapperDefinitionScanner(new DefaultMapperDefinitionScanner(scanPackages))
                 .supportSubclass(false)

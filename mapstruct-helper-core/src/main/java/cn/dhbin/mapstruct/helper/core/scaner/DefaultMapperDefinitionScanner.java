@@ -28,7 +28,7 @@ import cn.dhbin.mapstruct.helper.core.BeanConvertMapper;
 public class DefaultMapperDefinitionScanner extends AbstractPackageMapperDefinitionScanner<BeanConvertMapper> {
 
 
-    public DefaultMapperDefinitionScanner(String classPackages) {
+    public DefaultMapperDefinitionScanner(String... classPackages) {
         super(classPackages);
     }
 
