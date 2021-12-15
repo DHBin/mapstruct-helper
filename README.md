@@ -1,6 +1,6 @@
 # mapstruct-helper
 
-简化mapstruct使用
+简化mapstruct使用，灵感来源Spring Ioc。
 
 ## 使用方法
 
@@ -24,17 +24,19 @@ public interface FooToBooMapper extends BeanConvertMapper<FooBean, BooBean> {
 // 第二步：扫描装载Mapper（只需要配置一次）
 BeanConvertMappers.config(MapperConfig.defaultConfig("package").build());
 
-        FooBean fooBean=new FooBean();
-        fooBean.setName("xxx");
+FooBean fooBean=new FooBean();
+fooBean.setName("xxx");
 
 // 使用
-        assertEquals("xxx",BeanConvertMappers.convert(fooBean,BooBean.class).getName());
-        assertEquals("xxx",BeanConvertMappers.convert(fooBean,new BooBean()).getName());
+assertEquals("xxx",BeanConvertMappers.convert(fooBean,BooBean.class).getName());
+assertEquals("xxx",BeanConvertMappers.convert(fooBean,new BooBean()).getName());
 ```
 
 ## API
 
 ### Mapper配置
+
+> cn.dhbin.mapstruct.helper.core.MapperConfig
 
 ```java
 BeanConvertMappers.config(
@@ -83,17 +85,17 @@ public interface MyBeanConvertMapper<SOURCE, TARGET> {
 ```java
 BeanConvertMappers.config(MapperConfig.builder()
         .supportSubclass(false)
-        .mapperDefinitionScanner(new AbstractPackageMapperDefinitionScanner<MyBeanConvertMapper>("package"){
+        .mapperDefinitionScanner(new AbstractPackageMapperDefinitionScanner<MyBeanConvertMapper>("package") {
 
-@Override
-public Class<MyBeanConvertMapper> getMapperClass(){
-        return MyBeanConvertMapper.class;
-                   }
-                           })
-                           .convertFunction((mapper,source)->{
-                           return((MyBeanConvertMapper)mapper).convert(source);
-                           })
-                           .build());
+            @Override
+            public Class<MyBeanConvertMapper> getMapperClass() {
+                return MyBeanConvertMapper.class;
+            }
+        })
+        .convertFunction((mapper, source) -> {
+            return ((MyBeanConvertMapper) mapper).convert(source);
+        })
+        .build());
 ```
 
 ### 转换/复制属性
@@ -102,6 +104,39 @@ public Class<MyBeanConvertMapper> getMapperClass(){
 public static<T> T convert(Object source,Class<T> targetClass);
 public static<T> T convert(Object source,T target);
 ```
+
+## 与Spring集成
+
+### 依赖
+
+```xml
+<dependency>
+    <groupId>cn.dhbin</groupId>
+    <artifactId>mapstruct-helper-starter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+### 使用
+
+```java
+// 第一步：定义Mapper，继承cn.dhbin.mapstruct.helper.core.BeanConvertMapper
+@Mapper(componentModel = "spring")
+public interface FooToBooMapper extends BeanConvertMapper<FooBean, BooBean> {
+}
+
+
+FooBean fooBean = new FooBean();
+fooBean.setName("xxx");
+
+// 直接使用BeanConvertMappers
+assertEquals("xxx",BeanConvertMappers.convert(fooBean,BooBean.class).getName());
+assertEquals("xxx",BeanConvertMappers.convert(fooBean,new BooBean()).getName());
+
+// 扩展：继承cn.dhbin.mapstruct.helper.core.MapperConfig注入到Ioc中
+```
+
+
 
 ## LICENSE
 

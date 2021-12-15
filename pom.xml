@@ -39,10 +39,12 @@
         <lombok.version>1.18.22</lombok.version>
         <hutool.version>5.7.17</hutool.version>
         <junit.version>5.5.2</junit.version>
+        <spring-boot.version>2.6.1</spring-boot.version>
     </properties>
 
     <modules>
         <module>mapstruct-helper-core</module>
+        <module>mapstruct-helper-starter</module>
     </modules>
 
     <scm>
