@@ -25,6 +25,7 @@
     <artifactId>mapstruct-helper</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+    <name>mapstruct-helper</name>
     <description>mapstruct helper</description>
     <url>https://github.com/dhbin/mapstruct-helper</url>
 
@@ -50,6 +51,14 @@
         <developerConnection>scm:git:ssh://git@github.com/DHBin/mapstruct-helper.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
